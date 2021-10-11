@@ -18,9 +18,11 @@ pipeline{
 
     }
     post{
-        // always{
-        //     //echo "========always========"
-        // }
+         always{
+            mail to: 'ashidubey9876@gmail.com',
+			subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
+			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        }
         success{
             echo "========pipeline executed successfully ========"
         }
