@@ -1,26 +1,31 @@
-pipeline {
+pipeline{
+    // triggers{
+    //     pollSCM('H 0 * * 2')
+    // }
     agent{
-            label "master"
-        }
-        tools {
-            maven 'maven'
-            jdk 'jdk 11'
-        }
-    stages {
-
-        stage('Run Stage') {
-            steps {
-                echo 'Running the application...'
-                sh 'java -jar target/*.jar'
+        label "master"
+    }
+    tools { 
+        maven 'maven' 
+        jdk 'jdk11' 
+    }
+    stages{
+        stage("building"){
+            steps{
+                sh "mvn clean package"
             }
         }
+
     }
-    post {
+    post{
+        // always{
+        //     //echo "========always========"
+        // }
         success{
-        echo "Running stage successful"
+            echo "========pipeline executed successfully ========"
         }
         failure{
-        echo "Running stage failed"
+            echo "========pipeline execution failed========"
         }
     }
 }
