@@ -1,24 +1,30 @@
-pipeline {
-    agent any
-        tools {
-            maven 'maven'
-            // jdk 'jdk8'
-        }
-    stages {
-
-        stage('Testing') {
-            steps {
-                echo 'Testing the application...'
-                sh 'mvn clean test'
+pipeline{
+    // triggers{
+    //     pollSCM('H 0 * * 2')
+    // }
+    agent{
+        label "master"
+    }
+    tools { 
+        maven 'maven' 
+        jdk 'jdk 11' 
+    }
+    stages{
+        stage("testing"){
+            steps{
+                sh "mvn clean test"
             }
         }
     }
-    post {
+    post{
+        // always{
+        //     //echo "========always========"
+        // }
         success{
-        echo "Testing stage successful"
+            echo "========pipeline executed successfully ========"
         }
         failure{
-        echo "Testing stage failed"
+            echo "========pipeline execution failed========"
         }
     }
 }
