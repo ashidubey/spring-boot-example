@@ -6,7 +6,7 @@ pipeline {
         stage("Production") {
             steps {
                 //echo "Production branch"
-                sh "mvn clean package"
+                sh "mvn clean"
             }
         }
     }
