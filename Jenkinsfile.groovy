@@ -18,10 +18,10 @@ pipeline{
 
     }
     post{
-         always{
-            mail to: 'ashidubey9876@gmail.com',
-			subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
-			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+        always{
+            emailext body:  '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS: Check console output at $BUILD_URL to view the results.''',
+            subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!',
+            to: 'rahul.soni@knoldus.com'
         }
         success{
             echo "pipeline executed successfully"
