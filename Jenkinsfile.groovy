@@ -5,7 +5,7 @@ pipeline{
     agent {label 'slave-1'}
     tools { 
         maven 'maven' 
-        jdk 'jdk11' 
+        jdk 'jdk 11' 
     }
     options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
