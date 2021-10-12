@@ -1,36 +1,31 @@
-pipeline{
-    // triggers{
-    //     pollSCM('H 0 * * 2')
-    // }
+pipeline {
     agent{
-        label "master"
-    }
-    tools { 
-        maven 'maven' 
-        jdk 'jdk 11' 
-    }
-    options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-    }
-    stages{
-        stage("building"){
-            steps{
+            label "master"
+        }
+        tools {
+            maven 'maven'
+            // jdk 'jdk 11'
+        }
+    stages {
+
+        stage('Testing') {
+            steps {
+                echo 'Testing the application...'
                 sh "mvn clean"
             }
         }
-
     }
-    post{
-         always{
-            mail to: 'ashidubey9876@gmail.com',
-			subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
-			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
-        }
+    post {
+        //always{
+          //          mail to: 'ashidubey9876@gmail.com',
+        	//		subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
+        	//		body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+             //   }
         success{
-            echo "pipeline executed successfully"
+        echo "Testing stage successful"
         }
         failure{
-            echo "pipeline execution failed"
+        echo "Testing stage failed"
         }
     }
 }
