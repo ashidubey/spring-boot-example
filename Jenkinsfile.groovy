@@ -9,24 +9,28 @@ pipeline{
         maven 'maven' 
         jdk 'jdk 11' 
     }
+    options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
     stages{
-        stage("testing"){
+        stage("building"){
             steps{
-                sh "mvn clean test"
+                sh "mvn clean"
             }
         }
+
     }
     post{
-        always{
+         always{
             mail to: 'ashidubey9876@gmail.com',
 			subject: "Pipeline: ${currentBuild.fullDisplayName} is ${currentBuild.currentResult}",
 			body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }
         success{
-            echo "========pipeline executed successfully ========"
+            echo "pipeline executed successfully"
         }
         failure{
-            echo "========pipeline execution failed========"
+            echo "pipeline execution failed"
         }
     }
 }
