@@ -3,7 +3,7 @@ pipeline{
     //     pollSCM('H 0 * * 2')
     // }
     agent{
-        label "master"
+        label "slave-3"
     }
     tools { 
         maven 'maven' 
