@@ -14,7 +14,7 @@ pipeline{
         stage("cleaning"){
             steps{
                 sh "mvn clean"
-            }
+            } 
         }
         stage("testing"){
             steps{
@@ -30,10 +30,10 @@ pipeline{
             to: 'ashi.dubey@knoldus.com'
         }
         success{
-            echo "pipeline executed successfully"
+            echo "Pipeline executed successfully"
         }
         failure{
-            echo "pipeline execution failed"
+            echo "Pipeline execution failed"
         }
     }
 }
