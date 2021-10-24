@@ -22,6 +22,11 @@ pipeline{
                 sh "mvn test"
             }
         }
+        stage("packaging"){
+            steps{
+                sh "mvn package"
+            }
+        }
         stage("deploying"){
            steps{
                sh 'scp -i "/home/knoldus/Downloads/aws-auth.pem" /var/lib/jenkins/workspace/capstone-demo_development/target/hello-0.0.1-SNAPSHOT.jar ubuntu@15.206.147.135:/home/ubuntu'
